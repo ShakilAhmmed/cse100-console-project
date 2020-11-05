@@ -81,6 +81,34 @@ void seeAvailableBus()
 void bookSeat()
 {
     printf("\t book Seat");
+    char bus_name[MAX_LIMIT];
+    char cus_name[MAX_LIMIT];
+    char seat_num[MAX_LIMIT];
+    int amount;
+    time_t t = time(NULL);
+    struct tm tm = *localtime(&t);
+    //printf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    printf("\t Enter Bus Name: ");
+    fgets(bus_name, MAX_LIMIT, stdin);
+    scanf("%[^\n]%*c", bus_name);
+    printf("\n");
+    printf("\t Enter Customer Name: ");
+    scanf("%[^\n]%*c", cus_name);
+    printf("\n");
+    printf("\t Enter Seat Number: ");
+    scanf("%[^\n]%*c", seat_num);
+    printf("\n");
+    printf("\t Enter Amount Of Ticket:");
+    scanf("%d",&amount);
+    FILE *fptr;
+    fptr = fopen("bus_seatbook.txt","a");
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    fprintf(fptr,"Date = %d-%02d-%02d %02d:%02d:%02d Bus Name = %s Customer Name = %s Seat Number = %s Amount Of Ticket = %d\n",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,bus_name,cus_name,seat_num,amount);
+
+    fclose(fptr);
 }
 
 int main()

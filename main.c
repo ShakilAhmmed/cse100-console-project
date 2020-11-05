@@ -4,7 +4,8 @@
 #include <limits.h>
 #include <string.h>
 #define MAX_LIMIT 100
-#define BUS_FILE "C:\\Users\\shaki\\OneDrive\\Desktop\\BusTicketReservationProject\\bus.txt"
+#define BUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\bus.txt"
+#define CUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\customer.txt"
 void welcomeScreen()
 {
     printf("\t\t\t\t\t\t\aWelcome\n");
@@ -57,7 +58,38 @@ void addBus()
 
 void addNewCustomer()
 {
-    printf("\tAdd New Customer");
+    printf("\t Add New Customer\n");
+    char cus_name[MAX_LIMIT],cus_phone[MAX_LIMIT],password[MAX_LIMIT];
+    printf("\t Enter Customer Name:");
+    fgets(cus_name, MAX_LIMIT, stdin);
+    scanf("%[^\n]%*c", cus_name);
+    printf("\t Enter Customer Phone:");
+    fgets(cus_phone, MAX_LIMIT, stdin);
+    scanf("%[^\n]%*c", cus_phone);
+    printf("\t Enter Customer Password:");
+    fgets(password, MAX_LIMIT, stdin);
+    scanf("%[^\n]%*c", password);
+    FILE *fptr;
+    //char cwd[PATH_MAX];
+    /*if (getcwd(cwd, sizeof(cwd)) != NULL) {
+        strcat(cwd, "\bus.txt");
+        fptr = fopen(cwd,"w");
+        if(fptr == NULL) {
+          printf("Error!");
+          exit(1);
+       }
+       fprintf(fptr,"%s",bus_name);
+       fprintf(fptr,"%d",seat);
+       fclose(fptr);
+   }*/
+
+    fptr = fopen(CUS_FILE,"a");
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    fprintf(fptr,"Customer Name = %s Customer Phone = %s Password = %s\n",cus_name,cus_phone,password);
+    fclose(fptr);
 }
 
 void seeAvailableBus()

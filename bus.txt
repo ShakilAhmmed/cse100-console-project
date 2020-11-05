@@ -1,2 +1,3 @@
 Bus Name = Ena Poribohon Total Seat Is = 20
 Bus Name = Star Line Total Seat Is = 25
+Bus Name = ena Total Seat Is = 40

@@ -3,8 +3,10 @@
 #include <unistd.h>
 #include <limits.h>
 #include <string.h>
+#include <time.h>
 #define MAX_LIMIT 100
 #define BUS_FILE "/home/shakilahmmed/Desktop/cse100-console-project/bus.txt"
+
 void welcomeScreen()
 {
 
@@ -24,10 +26,10 @@ void menuScreen()
     printf("\n\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\t\t\t\t\t 1.Press 1 For Add New Bus\n");
     printf("\t\t\t\t\t 2.Press 2 For View Bus Details\n");
-    printf("\t\t\t\t\t 2.Press 3 For Add New Customer\n");
-    printf("\t\t\t\t\t 3.Press 4 For See Available Bus\n");
-    printf("\t\t\t\t\t 4.Press 5 For Booking Seat\n");
-    printf("\t\t\t\t\t 5.Press 6 For Quit :) \n");
+    printf("\t\t\t\t\t 3.Press 3 For Add New Customer\n");
+    printf("\t\t\t\t\t 4.Press 4 For See Available Bus\n");
+    printf("\t\t\t\t\t 5.Press 5 For Booking Seat\n");
+    printf("\t\t\t\t\t 6.Press 6 For Quit :) \n");
     printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
 

@@ -29,7 +29,8 @@ void menuScreen()
     printf("\t\t\t\t\t 3.Press 3 For Add New Customer\n");
     printf("\t\t\t\t\t 4.Press 4 For See Available Bus\n");
     printf("\t\t\t\t\t 5.Press 5 For Booking Seat\n");
-    printf("\t\t\t\t\t 6.Press 6 For Quit :) \n");
+    printf("\t\t\t\t\t 6.Press 6 For See Bus Book Seat Deatails\n");
+    printf("\t\t\t\t\t 7.Press 7 For Quit :) \n");
     printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
 
@@ -86,12 +87,16 @@ void bookSeat()
     char bus_name[MAX_LIMIT];
     char cus_name[MAX_LIMIT];
     char seat_num[MAX_LIMIT];
-    int amount;
-    time_t t = time(NULL);
-    struct tm tm = *localtime(&t);
+    char date[MAX_LIMIT];
+    int amount, d, m, year;
+    //Search_in_File("bus_seatbook.txt", )
+    //time_t t = time(NULL);
+    //struct tm tm = *localtime(&t);
     //printf("now: %d-%02d-%02d %02d:%02d:%02d\n", tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec);
+    printf("\t Enter Date (dd/mm/yy): ");
+    fgets(date, MAX_LIMIT, stdin);
+    scanf("%[^\n]%*c", date);
     printf("\t Enter Bus Name: ");
-    fgets(bus_name, MAX_LIMIT, stdin);
     scanf("%[^\n]%*c", bus_name);
     printf("\n");
     printf("\t Enter Customer Name: ");
@@ -108,9 +113,26 @@ void bookSeat()
       printf("Error!");
       exit(1);
     }
-    fprintf(fptr,"Date = %d-%02d-%02d %02d:%02d:%02d Bus Name = %s Customer Name = %s Seat Number = %s Amount Of Ticket = %d\n",tm.tm_year + 1900, tm.tm_mon + 1, tm.tm_mday, tm.tm_hour, tm.tm_min, tm.tm_sec,bus_name,cus_name,seat_num,amount);
+    fprintf(fptr,"Date = %s Bus Name = %s Customer Name = %s Seat Number = %s Amount Of Ticket = %d\n",date,bus_name,cus_name,seat_num,amount);
 
     fclose(fptr);
+}
+void match() {
+    char ch;
+    FILE *fp = fopen("bus_seatbook.txt","r");
+    if(fp == NULL) {
+
+      printf("Error!");
+      exit(1);
+
+    }
+     do{
+        ch = fgetc(fp);
+        putchar(ch);
+    } while(ch != EOF);
+
+
+	return 0;
 }
 
 int main()
@@ -132,6 +154,8 @@ int main()
         }else if(choice == 5) {
             bookSeat();
         }else if(choice == 6) {
+            match();
+        }else if(choice == 7) {
             printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
             exit(0);
         }else {

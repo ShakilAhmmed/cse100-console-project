@@ -1,2 +1,1 @@
-Date = 2020-11-05 20:44:08 Bus Name = Ena Customer Name = Shakil Seat Number = 1 Amount Of Ticket = 350
-Date = 2020-11-05 20:44:26 Bus Name = Ena Customer Name = Tamim Seat Number = 3 Amount Of Ticket = 350
+Date = 04/11/2020 Bus Name = tribhobon Customer Name = tania Seat Number = cd-03 Amount Of Ticket = 120

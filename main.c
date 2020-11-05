@@ -5,8 +5,8 @@
 #include <string.h>
 #include <time.h>
 #define MAX_LIMIT 100
-#define BUS_FILE "/home/shakilahmmed/Desktop/cse100-console-project/bus.txt"
-#define CUS_FILE "/home/shakilahmmed/Desktop/cse100-console-project/customer.txt"
+#define BUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\bus.txt"
+#define CUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\customer.txt"
 void welcomeScreen()
 {
 
@@ -27,9 +27,10 @@ void menuScreen()
     printf("\t\t\t\t\t 1.Press 1 For Add New Bus\n");
     printf("\t\t\t\t\t 2.Press 2 For View Bus Details\n");
     printf("\t\t\t\t\t 3.Press 3 For Add New Customer\n");
-    printf("\t\t\t\t\t 4.Press 4 For See Available Bus\n");
-    printf("\t\t\t\t\t 5.Press 5 For Booking Seat\n");
-    printf("\t\t\t\t\t 6.Press 6 For Quit :) \n");
+    printf("\t\t\t\t\t 4.Press 4 For View Customer Details\n");
+    printf("\t\t\t\t\t 5.Press 5 For See Available Bus\n");
+    printf("\t\t\t\t\t 6.Press 6 For Booking Seat\n");
+    printf("\t\t\t\t\t 7.Press 7 For Quit :) \n");
     printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
 
@@ -73,37 +74,45 @@ void viewBus()
 void addNewCustomer()
 {
     printf("\t Add New Customer\n");
-    char cus_name[MAX_LIMIT],cus_phone[MAX_LIMIT],password[MAX_LIMIT];
+    char cus_name[MAX_LIMIT], cus_phone[MAX_LIMIT], password[MAX_LIMIT];
+
     printf("\t Enter Customer Name:");
     fgets(cus_name, MAX_LIMIT, stdin);
     scanf("%[^\n]%*c", cus_name);
+    printf("\n");
+
     printf("\t Enter Customer Phone:");
     fgets(cus_phone, MAX_LIMIT, stdin);
     scanf("%[^\n]%*c", cus_phone);
+    printf("\n");
+
     printf("\t Enter Customer Password:");
     fgets(password, MAX_LIMIT, stdin);
     scanf("%[^\n]%*c", password);
-    FILE *fptr;
-    //char cwd[PATH_MAX];
-    /*if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        strcat(cwd, "\bus.txt");
-        fptr = fopen(cwd,"w");
-        if(fptr == NULL) {
-          printf("Error!");
-          exit(1);
-       }
-       fprintf(fptr,"%s",bus_name);
-       fprintf(fptr,"%d",seat);
-       fclose(fptr);
-   }*/
 
+    FILE *fptr;
     fptr = fopen(CUS_FILE,"a");
     if(fptr == NULL) {
       printf("Error!");
       exit(1);
     }
-    fprintf(fptr,"Customer Name = %s Customer Phone = %s Password = %s\n",cus_name,cus_phone,password);
+    fprintf(fptr,"Customer Name = %s Customer Phone = %s Password = %s\n", cus_name,cus_phone,password);
     fclose(fptr);
+}
+
+void viewCus()
+{
+    char ch;
+    FILE *fptr;
+    fptr = fopen(CUS_FILE,"r");
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    do{
+        ch = fgetc(fptr);
+        putchar(ch);
+    } while(ch != EOF);
 }
 
 void seeAvailableBus()
@@ -159,10 +168,12 @@ int main()
         }else if(choice == 3) {
             addNewCustomer();
         }else if(choice == 4) {
-            seeAvailableBus();
+            viewCus();
         }else if(choice == 5) {
-            bookSeat();
+            seeAvailableBus();
         }else if(choice == 6) {
+            bookSeat();
+        }else if(choice == 7) {
             printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
             exit(0);
         }else {

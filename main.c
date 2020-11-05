@@ -4,20 +4,31 @@
 #include <limits.h>
 #include <string.h>
 #define MAX_LIMIT 100
-#define BUS_FILE "C:\\Users\\shaki\\OneDrive\\Desktop\\BusTicketReservationProject\\bus.txt"
+#define BUS_FILE "/home/shakilahmmed/Desktop/cse100-console-project/bus.txt"
 void welcomeScreen()
 {
-    printf("\t\t\t\t\t\t\aWelcome\n");
-    printf("\t\t\t\t\tBus Ticket Reservation System\n");
+
+    printf("\n\n\n\n\n\n\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@");
+	printf("\n\t\t\t\t#\t\t WELCOME\t\t#");
+	printf("\n\t\t\t\t#\t Bus Ticket Reservation System \t#");
+	printf("\n\t\t\t\t#\t\t Team Members \t\t#");
+	printf("\n\t\t\t\t#\t Nasima Akter Tania - 012 \t#");
+	printf("\n\t\t\t\t#\t Shakil Ahmmed - 013 \t\t#");
+	printf("\n\t\t\t\t#\t Mahedi Hasan - 011 \t\t#");
+	printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t\t\t\t\t\n");
 }
 
 void menuScreen()
 {
-    printf("\t 1.Press 1 For Add New Bus\n");
-    printf("\t 2.Press 2 For Add New Customer\n");
-    printf("\t 3.Press 3 For See Available Bus\n");
-    printf("\t 4.Press 4 For Booking Seat\n");
-    printf("\t 5.Press 5 For Quit :) \n");
+    printf("\n\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t\t\t\t\t 1.Press 1 For Add New Bus\n");
+    printf("\t\t\t\t\t 2.Press 2 For View Bus Details\n");
+    printf("\t\t\t\t\t 2.Press 3 For Add New Customer\n");
+    printf("\t\t\t\t\t 3.Press 4 For See Available Bus\n");
+    printf("\t\t\t\t\t 4.Press 5 For Booking Seat\n");
+    printf("\t\t\t\t\t 5.Press 6 For Quit :) \n");
+    printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
 
 void addBus()
@@ -32,19 +43,6 @@ void addBus()
     printf("\t Enter Total Seat:");
     scanf("%d",&seat);
     FILE *fptr;
-    //char cwd[PATH_MAX];
-    /*if (getcwd(cwd, sizeof(cwd)) != NULL) {
-        strcat(cwd, "\bus.txt");
-        fptr = fopen(cwd,"w");
-        if(fptr == NULL) {
-          printf("Error!");
-          exit(1);
-       }
-       fprintf(fptr,"%s",bus_name);
-       fprintf(fptr,"%d",seat);
-       fclose(fptr);
-   }*/
-
     fptr = fopen(BUS_FILE,"a");
     if(fptr == NULL) {
       printf("Error!");
@@ -53,6 +51,21 @@ void addBus()
     fprintf(fptr,"Bus Name = %s Total Seat Is = %d\n",bus_name,seat);
     fclose(fptr);
 
+}
+
+void viewBus()
+{
+    char ch;
+    FILE *fptr;
+    fptr = fopen(BUS_FILE,"r");
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    do{
+        ch = fgetc(fptr);
+        putchar(ch);
+    } while(ch != EOF);
 }
 
 void addNewCustomer()
@@ -81,12 +94,14 @@ int main()
         if(choice == 1) {
             addBus();
         }else if(choice == 2) {
-            addNewCustomer();
+            viewBus();
         }else if(choice == 3) {
+            addNewCustomer();
+        }else if(choice == 4) {
             seeAvailableBus();
-        }else if(choice == 4){
+        }else if(choice == 5) {
             bookSeat();
-        }else if(choice == 5){
+        }else if(choice == 6) {
             printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
             exit(0);
         }else {

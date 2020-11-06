@@ -34,7 +34,86 @@ void menuScreen()
     printf("\t\t\t\t\t 8.Press 8 For Quit :) \n");
     printf("\n\t\t\t\t@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
+struct user
+{
+    char user_id[MAX_LIMIT];
+    char user_name[MAX_LIMIT];
+    char password[MAX_LIMIT];
+    char email[MAX_LIMIT];
+    char phone[MAX_LIMIT];
+};
 
+void adminRegister()
+{
+    FILE *fptr;
+    struct user r;
+    fptr = fopen("user.txt","a");
+    printf("\t Add New Admin\n");
+    printf("\t Enter User ID: ");
+    scanf("%s", &r.user_id);
+    printf("\t Enter User Name: ");
+    scanf("%s", &r.user_name);
+    printf("\t Enter User Password: ");
+    scanf("%s",&r.password);
+    printf("\t Enter User Email: ");
+    scanf("%s",&r.email);
+    printf("\t Enter User Phone: ");
+    scanf("%s",&r.phone);
+
+
+
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    fwrite(&r, sizeof(r), 1, fptr);
+    fclose(fptr);
+    printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t \t \t You are successfully registered!! \n");
+    printf("\t \t \t Your UserId is %s and your password is %s \n", r.user_id, r.password);
+    printf("\t \t \t Now login with your userid and password!! Press By 2 \n");
+    printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\n");
+
+
+}
+void adminlogin()
+{
+    char usserid[MAX_LIMIT];
+    char password[MAX_LIMIT];
+    FILE *fptr;
+    struct user r;
+    fptr = fopen("user.txt", "r");
+    if (fptr == NULL)
+    {
+        printf("FILE NOT FOUND!!!");
+        exit(1);
+    }
+    printf("\n UserID : ");
+    scanf("%s", &usserid);
+    printf("\n Password : ");
+    scanf("%s", &password);
+    while (fread(&r, sizeof(r), 1, fptr));
+    {
+        if (strcmp(usserid, r.user_id) == 0 && strcmp(password, r.password)==0)
+        {
+
+            printf("\nYou are successfully logged in !!\n");
+
+
+        }
+        else
+        {
+            printf("\nYour UserID or password is incorrect !!\n");
+            printf("Press any key to continue ...\n");
+            adminlogin();
+        }
+
+
+    }
+    fclose(fptr);
+
+}
 void addBus()
 {
     printf("\t Add New Bus\n");
@@ -47,7 +126,7 @@ void addBus()
     printf("\t Enter Total Seat:");
     scanf("%d",&seat);
     FILE *fptr;
-    fptr = fopen(BUS_FILE,"a");
+    fptr = fopen("bus.txt","a");
     if(fptr == NULL) {
       printf("Error!");
       exit(1);
@@ -61,7 +140,7 @@ void viewBus()
 {
     char ch;
     FILE *fptr;
-    fptr = fopen(BUS_FILE,"r");
+    fptr = fopen("bus.txt","r");
     if(fptr == NULL) {
       printf("Error!");
       exit(1);
@@ -92,7 +171,7 @@ void addNewCustomer()
     scanf("%[^\n]%*c", password);
 
     FILE *fptr;
-    fptr = fopen(CUS_FILE,"a");
+    fptr = fopen("customer.txt","a");
     if(fptr == NULL) {
       printf("Error!");
       exit(1);
@@ -105,7 +184,7 @@ void viewCus()
 {
     char ch;
     FILE *fptr;
-    fptr = fopen(CUS_FILE,"r");
+    fptr = fopen("customer.txt","r");
     if(fptr == NULL) {
       printf("Error!");
       exit(1);
@@ -157,7 +236,7 @@ void bookSeat()
 
     fclose(fptr);
 }
-void match() {
+void seatBookDetails() {
     char ch;
     FILE *fp = fopen("bus_seatbook.txt","r");
     if(fp == NULL) {
@@ -184,9 +263,9 @@ int main()
         printf("\tEnter Your Choice:");
         scanf("%d",&choice);
         if(choice == 1) {
-            addBus();
+            adminRegister();
         }else if(choice == 2) {
-            viewBus();
+            adminlogin();
         }else if(choice == 3) {
             addNewCustomer();
         }else if(choice == 4) {
@@ -196,7 +275,7 @@ int main()
         }else if(choice == 6) {
             bookSeat();
         }else if(choice == 7) {
-            match();
+            seatBookDetails();
         }else if(choice == 8) {
             printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
             exit(0);

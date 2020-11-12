@@ -1,3 +1,0 @@
-Date = 04/11/2020 Bus Name = tribhobon Customer Name = tania Seat Number = cd-03 Amount Of Ticket = 120
-Date = 05/12/2020 Bus Name = Ena probohon Customer Name = tisa Seat Number = D1 Amount Of Ticket = 270
-Date = 05/11/2020 Bus Name = Ena Poribohon Customer Name = roni Seat Number = D4 Amount Of Ticket = 270

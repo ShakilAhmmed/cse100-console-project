@@ -1,7 +1,0 @@
-Bus Name = Ena Poribohon Total Seat Is = 20
-Bus Name = Star Line Total Seat Is = 25
-Bus Name = Niloy Total Seat Is = 20
-Bus Name = Mehedi  Total Seat Is = 40
-Bus Name = ena Total Seat Is = 40
-
-Bus Name = samoli Total Seat Is = 200

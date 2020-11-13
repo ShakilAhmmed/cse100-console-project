@@ -68,6 +68,7 @@ void menuScreenAdmin()
     printf("\t\t\t 8.Press 9 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
+
 void cumtomerMenu()
 {
     printf("\n\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
@@ -80,6 +81,7 @@ void cumtomerMenu()
     printf("\t\t\t 5.Press 5 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
+
 void subMenuCustomer()
 {
     cumtomerMenu();
@@ -136,6 +138,7 @@ void subMenuAdmin()
         }
     }
 }
+
 void mainMenu()
 {
    for(;;) {
@@ -160,7 +163,6 @@ void mainMenu()
     }
     //getch();
 }
-
 
 struct user
 {
@@ -207,6 +209,7 @@ void adminRegister()
 
 
 }
+
 void adminLogin()
 {
     char usserid[MAX_LIMIT];
@@ -388,6 +391,7 @@ void busRootAdd()
     printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\n");
 }
+
 void busRootView()
 {
     char ch;
@@ -408,6 +412,7 @@ void busRootView()
 
     fclose (fptr);
 }
+
 struct busdata
 {
     char root_name[MAX_LIMIT];
@@ -592,7 +597,7 @@ void bookedDetails()
       printf("Error!");
       exit(1);
     }
-    printf("\t-----------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
 
 
     while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
@@ -604,8 +609,7 @@ void bookedDetails()
 
     }
 
-
-    printf("\t-----------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
 
     fclose (fptr);
 
@@ -712,12 +716,6 @@ void bookedSeat()
             //}
             fclose(fptr);
             }
-
-
-
-
-
-
 
         }
         else

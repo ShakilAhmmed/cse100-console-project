@@ -12,7 +12,7 @@
 int  fseat[ROWV][COLMNV], booked_row, booked_col;
 
 void welcomeScreen(),mainMenu(),menuScreen() , busAdd(), busAddView() ,busRootAdd(), busRootView(), bookedSeat(),seeAvailableBus() ;
-void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer();
+void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer(), bookedDetails();
 int main()
 {
     welcomeScreen();
@@ -242,6 +242,7 @@ void adminLogin()
             printf("\t \t \t Your UserID or password is incorrect !!\n");
             printf("\t \t **************************************************\n");
             printf("\n");
+
             adminLogin();
         }
 

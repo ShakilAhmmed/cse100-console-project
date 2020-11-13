@@ -6,13 +6,13 @@
 #include <time.h>
 #define MAX_LIMIT 100
 #define COLMNV 10
-#define ROWV 5
+#define ROWV 4
 #define BUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\bus.txt"
 #define CUS_FILE "C:\\Users\\mahad\\OneDrive\\Desktop\\BusTicketReservationProject\\customer.txt"
 int  fseat[ROWV][COLMNV], booked_row, booked_col;
 
 void welcomeScreen(),mainMenu(),menuScreen() , busAdd(), busAddView() ,busRootAdd(), busRootView(), bookedSeat(),seeAvailableBus() ;
-void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat();
+void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer();
 int main()
 {
     welcomeScreen();
@@ -60,12 +60,49 @@ void menuScreenAdmin()
     printf("\t\t\t 1.Press 1 For  Add Bus Root \n");
     printf("\t\t\t 2.Press 2 For See Bus Root Details \n");
     printf("\t\t\t 3.Press 3 For Add Bus  \n");
-    printf("\t\t\t 4.Press 4 For See Add Bus Details \n");
-    printf("\t\t\t 5.Press 5 For See Add Bus Book \n");
-    printf("\t\t\t 6.Press 6 For See Add Bus Details \n");
-    printf("\t\t\t 7.Press 7 Return Main Menu \n");
-    printf("\t\t\t 8.Press 8 For Quit :) \n");
+    printf("\t\t\t 4.Press 4 For See Bus Details \n");
+    printf("\t\t\t 5.Press 5 For Bus Reservation \n");
+    printf("\t\t\t 6.Press 6 For See Bus Reservation Details \n");
+    printf("\t\t\t 6.Press 7 For See Bus All Booked Details \n");
+    printf("\t\t\t 7.Press 8 Return Main Menu \n");
+    printf("\t\t\t 8.Press 9 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+}
+void cumtomerMenu()
+{
+    printf("\n\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t\t\t CUSTOMER MENU \n");
+    printf("\t\t\t ----------- \n");
+    printf("\t\t\t 1.Press 1 ForFor See Bus Details \n");
+    printf("\t\t\t 2.Press 2 For Bus Reservation \n");
+    printf("\t\t\t 3.Press 3 For See Bus Reservation Details  \n");
+    printf("\t\t\t 4.Press 4 Return Main Menu \n");
+    printf("\t\t\t 5.Press 5 For Quit :) \n");
+    printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+}
+void subMenuCustomer()
+{
+    cumtomerMenu();
+    for(;;) {
+        int choice;
+        printf("\tEnter Customer Menu Choice: ");
+        scanf("%d",&choice);
+        if(choice == 1) {
+           busAddView();
+        }else if(choice == 2) {
+           bookedSeat();
+        }else if(choice == 3) {
+            seeAvailableBus();
+        }else if(choice ==4){
+            mainMenu();
+        }else if(choice == 5) {
+            printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
+            exit(0);
+        }else {
+            printf("\t Sorry Your Choice Is Wrong.\n");
+            exit(0);
+        }
+    }
 }
 void subMenuAdmin()
 {
@@ -87,8 +124,10 @@ void subMenuAdmin()
         }else if(choice ==6){
             seeAvailableBus();
         }else if(choice ==7){
-            mainMenu();
+            bookedDetails();
         }else if(choice == 8) {
+            mainMenu();
+        }else if(choice == 9) {
             printf("\t \a Thank You For Choosing Us.Have a Great Day :)\n");
             exit(0);
         }else {
@@ -268,6 +307,7 @@ void customerLogin()
             printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
             printf("\t \t \t You are successfully logged in :)\n");
             printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+            subMenuCustomer();
 
 
         }
@@ -370,7 +410,7 @@ struct busdata
 {
     char root_name[MAX_LIMIT];
     char bus_name[MAX_LIMIT];
-    char total_seat[MAX_LIMIT];
+    int total_seat;
 };
 
 void busAdd()
@@ -392,14 +432,16 @@ void busAdd()
     }
 
 
-    while(fread(&root, sizeof(struct busroot), 1, rptr))
+    while(fread(&root, sizeof(struct busroot), 1, rptr));
     {
         if (strcmp(bus.root_name, root.root_name) == 0 )
         {
             printf("\t Enter Bus Name: ");
             scanf("%s", &bus.bus_name);
-            printf("\t Enter Total Seat: ");
-            scanf("%s",&bus.total_seat);
+
+            bus.total_seat =   ROWV*COLMNV ;
+            printf("\t  Bus Total Seat : %d ",bus.total_seat);
+            printf("\n");
 
             if(fptr == NULL) {
               printf("Error!");
@@ -436,9 +478,10 @@ void busAdd()
 
 void busAddView()
 {
-    char ch;
+
+
     FILE *fptr;
-    struct busdata bus;
+    struct busdata busd;
     fptr = fopen("busdata.txt","r");
     if(fptr == NULL) {
       printf("Error!");
@@ -446,33 +489,16 @@ void busAddView()
     }
     printf("\t---------------------------------------------------------------------------------------------\n");
 
-    while(fread(&bus, sizeof(struct busdata), 1, fptr))
+    while(fread(&busd, sizeof(struct busdata), 1, fptr))
 
-        printf ("\t\t Root Name = %s \t| Bus Name = %s \t| Total Seat = %s  \n", bus.root_name,bus.bus_name, bus.total_seat);
+        printf ("\t\t Root Name = %s \t| Bus Name = %s \t| Total Seat = %d  \t \n", busd.root_name,busd.bus_name, busd.total_seat);
 
     printf("\t---------------------------------------------------------------------------------------------\n");
 
     fclose (fptr);
-}
 
-void seeAvailableBus()
-{
-    printf("\tSee Available Bus");
-}
 
-void seatBookDetails() {
-    char ch;
-    FILE *fp = fopen("bus_seatbook.txt","r");
-    if(fp == NULL) {
 
-      printf("Error!");
-      exit(1);
-
-    }
-     do{
-        ch = fgetc(fp);
-        putchar(ch);
-    } while(ch != EOF);
 }
 struct seatbook
 {
@@ -485,22 +511,124 @@ struct seatbook
     int book_seat;
 };
 
+void seeAvailableBus()
+{
+    char date[MAX_LIMIT];
+    char bus_name[MAX_LIMIT];
+    int n = 0 ,h = 1;
+    FILE *fptr;
+    struct seatbook seat;
+    fptr = fopen("seatbook.txt","r");
+
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    printf("\t Enter Date dd/mm/yyyy: ");
+    scanf("%s", &date);
+    printf("\t Enter Bus Name : ");
+    scanf("%s", &bus_name);
+
+
+    while(fread(&seat, sizeof(struct seatbook), 1, fptr));
+    {
+
+        if (strcmp(seat.date, date) == 0  && strcmp(seat.bus_name, bus_name) == 0)
+        {
+
+            printf("\t \t \t  \t  \t  Seats\n");
+            printf("\t\t 1 \t 2 \t 3 \t 4 \t 5 \t 6 \t 7 \t 8 \t 9 \t 10");
+            printf("\n");
+           for (int i = 0; i < ROWV; i++)
+            {
+
+                    printf("Rows %d : ", i + 1);
+                    for (int j = 0; j < COLMNV; j++)
+                    {
+
+
+                        if(seat.book_row == i && seat.book_column == j)
+                        {
+                             printf("\t %d",h);
+                        }
+                        else
+                        {
+                            printf("\t %d",n);
+                        }
+                    }
+
+                    printf("\n");
+            }
+            printf("\n");
+        }
+
+        }
+        else
+        {
+            printf("\t \t **************************************************\n");
+            printf("\t \t \t This Bus Data Not Found !!\n");
+            printf("\t \t **************************************************\n");
+            printf("\n");
+
+        }
+
+    }
+      //printf("\t---------------------------------------------------------------------------------------------\n");
+
+        //printf ("\t\t Root Name = %s \t| Bus Name = %s \t| Total Seat = %s  \n", bus.root_name,bus.bus_name, bus.total_seat);
+
+    //printf("\t---------------------------------------------------------------------------------------------\n");
+
+    fclose (fptr);
+}
+void bookedDetails()
+{
+    FILE *fptr;
+    struct seatbook seat;
+    fptr = fopen("seatbook.txt","r");
+    if(fptr == NULL) {
+      printf("Error!");
+      exit(1);
+    }
+    printf("\t---------------------------------------------------------------------------------------------\n");
+
+
+    while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
+    {
+
+
+        printf ("\t\t Date = %s \t| Bus Name = %s \t| Row = %d  |\t Column = %d |\t Available = %d |\t Booked = %d |\t \n",seat.date, seat.bus_name,seat.book_row, seat.book_column, seat.availabl_seat, seat.book_seat);
+
+
+    }
+
+
+    printf("\t---------------------------------------------------------------------------------------------\n");
+
+    fclose (fptr);
+
+
+
+
+
+}
+
 void chooseSeat()
 {
     int row, col,k;
-    printf("\t Which row do you want to choose? : ");
+    printf("\t \t Which row do you want to choose? : ");
     scanf("%d", &row);
-    printf("\t Which seat do you want to select? : ");
+    printf("\t \t Which seat do you want to select? : ");
     scanf("%d", &col);
     if (row > ROWV || col > COLMNV)
     {
-        printf("Wrong Entry !! Try again\n");
+        printf("\t \t Wrong Entry !! Try again\n");
         chooseSeat();
 
     }
     else if (fseat[row - 1][col - 1] != 0)
     {
-        printf("Seat is already reserved try again !!\n");
+        printf(" \t \t Seat is already reserved try again !!\n");
         chooseSeat();
 
     }
@@ -518,18 +646,18 @@ void chooseSeat()
 void bookedSeat()
 {
 
-    int num_seat,row, colum,total_seat, available,booked;
+    int num_seat,row, colum,total_seat, available,booked, incre =0;
     struct busdata bus;
     struct seatbook seat;
     FILE *fptr, *rptr;
-    fptr = fopen("seatbook.txt","a+");
+    fptr = fopen("seatbook.txt","a");
     printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\t \t Welcome Bus Reservation Form\n");
     printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\n");
-    printf("\t Enter Date dd/mm/yyyy: ");
+    printf("\t\t  Enter Date dd/mm/yyyy: ");
     scanf("%s", &seat.date);
-    printf("\t Enter Bus Name : ");
+    printf("\t \t  Enter Bus Name : ");
     scanf("%s", &seat.bus_name);
 
     rptr = fopen("busdata.txt","r");
@@ -539,46 +667,53 @@ void bookedSeat()
     }
 
 
-    while(fread(&bus, sizeof(struct busdata), 1, rptr))
+    while(fread(&bus, sizeof(struct busdata), 1, rptr));
     {
         if (strcmp(seat.bus_name, bus.bus_name) == 0 )
         {
 
-            if(fptr == NULL) {
+            if(rptr == NULL) {
               printf("Error!");
               exit(1);
             }
+            else{
+                total_seat = ROWV*COLMNV;
+
+                //printf("How many seats do you want to reserve?\n");
+                //scanf("%d", &num_seat);
+
+                displaySeat();
+
+                //for (int i = 1; i <= num_seat; i++)
+                //{
 
 
-            total_seat = ROWV*COLMNV;
-
-            printf("How many seats do you want to reserve?\n");
-            scanf("%d", &num_seat);
-            displaySeat();
-
-            for (int i = 1; i <= num_seat; i++)
-            {
-
-
-                    chooseSeat();
                     seat.total_seat = total_seat;
                     seat.availabl_seat = total_seat - 1;
-                    seat.book_seat += 1;
-                    seat.book_row = row ;
-                    seat.book_column = colum ;
-                    if(rptr == NULL) {
+                    seat.book_seat = incre+1 ;
+                    chooseSeat();
+                    seat.book_row = booked_row ;
+                    seat.book_column = booked_col ;
+                    //printf("row = %d col = %d ",seat.book_row , seat.book_column);
+                    if(fptr == NULL) {
                         printf("Error!");
                         exit(1);
                     }
                     fwrite(&seat, sizeof(seat), 1, fptr);
-                    fclose(fptr);
+
                     printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
                     printf("\t \t \t Congratulations!! Reservation Completed !!! \n");
                     printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
                     printf("\n");
                     printf("\n");
 
+                //}
+            fclose(fptr);
             }
+
+
+
+
 
 
 
@@ -593,10 +728,11 @@ void bookedSeat()
 
         }
     }
-
-
-
     fclose (rptr);
+
+
+
+
 
 
 

@@ -12,7 +12,7 @@
 int  fseat[ROWV][COLMNV], booked_row, booked_col;
 
 void welcomeScreen(),mainMenu(),menuScreen() , busAdd(), busAddView() ,busRootAdd(), busRootView(), bookedSeat(),seeAvailableBus() ;
-void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer(), bookedDetails();
+void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer(), bookedDetails(),bookedAllData();
 int main()
 {
     welcomeScreen();
@@ -63,9 +63,9 @@ void menuScreenAdmin()
     printf("\t\t\t 4.Press 4 For See Bus Details \n");
     printf("\t\t\t 5.Press 5 For Bus Reservation \n");
     printf("\t\t\t 6.Press 6 For See Bus Reservation Details \n");
-    printf("\t\t\t 6.Press 7 For See Bus All Booked Details \n");
-    printf("\t\t\t 7.Press 8 Return Main Menu \n");
-    printf("\t\t\t 8.Press 9 For Quit :) \n");
+    printf("\t\t\t 7.Press 7 For See Bus All Booked Details \n");
+    printf("\t\t\t 8.Press 8 Return Main Menu \n");
+    printf("\t\t\t 9.Press 9 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
 
@@ -94,7 +94,7 @@ void subMenuCustomer()
         }else if(choice == 2) {
            bookedSeat();
         }else if(choice == 3) {
-            seeAvailableBus();
+            bookedDetails();
         }else if(choice ==4){
             mainMenu();
         }else if(choice == 5) {
@@ -124,9 +124,9 @@ void subMenuAdmin()
         }else if(choice ==5){
             bookedSeat();
         }else if(choice ==6){
-            seeAvailableBus();
-        }else if(choice ==7){
             bookedDetails();
+        }else if(choice ==7){
+            bookedAllData();
         }else if(choice == 8) {
             mainMenu();
         }else if(choice == 9) {
@@ -219,7 +219,7 @@ void adminLogin()
     fptr = fopen("user.txt", "r");
     if (fptr == NULL)
     {
-        printf("Data File Not Found !");
+        printf("FILE NOT FOUND!!!");
         exit(1);
     }
     printf("\t UserID : ");
@@ -274,7 +274,7 @@ void addNewCustomer()
     scanf("%s",&cr.phone);
 
     if(fptr == NULL) {
-      printf("Data File Not Found !");
+      printf("Error!");
       exit(1);
     }
 
@@ -341,7 +341,7 @@ void viewCustomer()
     struct user cr;
     fptr = fopen("customer.txt","r");
     if(fptr == NULL) {
-      printf("Data File Not Found !");
+      printf("Error!");
       exit(1);
     }
     printf("\t---------------------------------------------------------------------------------------------\n");
@@ -382,7 +382,7 @@ void busRootAdd()
     scanf("%s",&root.distance);
 
     if(fptr == NULL) {
-      printf("Data File Not Found !");
+      printf("Error!");
       exit(1);
     }
 
@@ -453,7 +453,7 @@ void busAdd()
             printf("\n");
 
             if(fptr == NULL) {
-              printf("Data File Not Found !");
+              printf("Error!");
               exit(1);
             }
 
@@ -539,7 +539,8 @@ void seeAvailableBus()
     scanf("%s", &bus_name);
 
 
-    while(fread(&seat, sizeof(struct seatbook), 1, fptr));
+
+    while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
     {
 
         if ( strcmp(seat.date, date) == 0 &&  strcmp(seat.bus_name, bus_name) == 0)
@@ -572,14 +573,13 @@ void seeAvailableBus()
 
 
         }
-        else
-        {
-            printf("\t \t **************************************************\n");
-            printf("\t \t \t This Bus Data Not Found !!\n");
-            printf("\t \t **************************************************\n");
-            printf("\n");
 
-        }
+        printf("\t \t **************************************************\n");
+        printf("\t \t \t This Bus Data Not Found !!\n");
+        printf("\t \t **************************************************\n");
+        printf("\n");
+
+
 
     }
       //printf("\t---------------------------------------------------------------------------------------------\n");
@@ -593,34 +593,71 @@ void seeAvailableBus()
 void bookedDetails()
 {
     FILE *fptr;
+    char date[MAX_LIMIT];
+    char bus_name[MAX_LIMIT];
     struct seatbook seat;
     fptr = fopen("seatbook.txt","r");
     if(fptr == NULL) {
       printf("Data File Not Found !");
       exit(1);
     }
-    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\t Enter Date dd/mm/yyyy: ");
+    scanf("%s", &date);
+    printf("\t Enter Bus Name : ");
+    scanf("%s", &bus_name);
+    printf("\t---------------------------------------------------------------------------------------------------------\n");
 
 
-    while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
+
+     while(fread(&seat, sizeof(struct seatbook), 1, fptr))
     {
 
+        if ( strcmp(seat.date, date) == 0 &&  strcmp(seat.bus_name, bus_name) == 0)
+        {
 
-        printf ("\t\t Date = %s \t| Bus Name = %s \t| Row = %d  |\t Column = %d |\t Available = %d |\t Booked = %d |\t \n",seat.date, seat.bus_name,seat.book_row, seat.book_column, seat.availabl_seat, seat.book_seat);
+            printf ("\t\t Date = %s \t| Bus Name = %s \t| Row[%d]Column[%d] = Booked\t \n",seat.date, seat.bus_name,seat.book_row, seat.book_column, seat.availabl_seat, seat.book_seat);
+
+        }
+
 
 
     }
 
-    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
+    printf("\t-------------------------------------------------------------------------------------------------------\n");
 
     fclose (fptr);
 
 
-
-
-
 }
+void bookedAllData()
+{
+    FILE *fptr;
 
+    struct seatbook seat;
+    fptr = fopen("seatbook.txt","r");
+    if(fptr == NULL) {
+      printf("Data File Not Found !");
+      exit(1);
+    }
+
+    printf("\t----------------------------------------------------------------------------------------------------\n");
+
+
+
+     while(fread(&seat, sizeof(struct seatbook), 1, fptr))
+    {
+
+
+
+        printf ("\t\t Date = %s \t| Bus Name = %s \t| Row[%d]Column[%d] = Booked\t \n",seat.date, seat.bus_name,seat.book_row, seat.book_column, seat.availabl_seat, seat.book_seat);
+
+
+    }
+
+    printf("\t---------------------------------------------------------------------------------------------------\n");
+
+    fclose (fptr);
+}
 void chooseSeat()
 {
     int row, col,k;
@@ -670,7 +707,7 @@ void bookedSeat()
 
     rptr = fopen("busdata.txt","r");
     if(rptr == NULL) {
-      printf("Data File Not Found !");
+      printf("Error!");
       exit(1);
     }
 
@@ -681,7 +718,7 @@ void bookedSeat()
         {
 
             if(rptr == NULL) {
-              printf("Data File Not Found !");
+              printf("Error!");
               exit(1);
             }
             else{
@@ -704,7 +741,7 @@ void bookedSeat()
                     seat.book_column = booked_col ;
                     //printf("row = %d col = %d ",seat.book_row , seat.book_column);
                     if(fptr == NULL) {
-                        printf("Data File Not Found !");
+                        printf("Error!");
                         exit(1);
                     }
                     fwrite(&seat, sizeof(seat), 1, fptr);

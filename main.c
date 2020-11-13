@@ -12,7 +12,7 @@
 int  fseat[ROWV][COLMNV], booked_row, booked_col;
 
 void welcomeScreen(),mainMenu(),menuScreen() , busAdd(), busAddView() ,busRootAdd(), busRootView(), bookedSeat(),seeAvailableBus() ;
-void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer();
+void adminRegister(), adminLogin(), addNewCustomer(), customerLogin(), displaySeat(),cumtomerMenu(),subMenuCustomer(), bookedDetails();
 int main()
 {
     welcomeScreen();
@@ -68,6 +68,7 @@ void menuScreenAdmin()
     printf("\t\t\t 8.Press 9 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
+
 void cumtomerMenu()
 {
     printf("\n\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
@@ -80,6 +81,7 @@ void cumtomerMenu()
     printf("\t\t\t 5.Press 5 For Quit :) \n");
     printf("\n\t\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
 }
+
 void subMenuCustomer()
 {
     cumtomerMenu();
@@ -136,6 +138,7 @@ void subMenuAdmin()
         }
     }
 }
+
 void mainMenu()
 {
    for(;;) {
@@ -161,7 +164,6 @@ void mainMenu()
     //getch();
 }
 
-
 struct user
 {
     char user_id[MAX_LIMIT];
@@ -176,7 +178,9 @@ void adminRegister()
     FILE *fptr;
     struct user r;
     fptr = fopen("user.txt","a");
-    printf("\t Add New Admin\n");
+    printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t \t Add New Admin Form\n");
+    printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\t Enter User ID: ");
     scanf("%s", &r.user_id);
     printf("\t Enter User Name: ");
@@ -205,6 +209,7 @@ void adminRegister()
 
 
 }
+
 void adminLogin()
 {
     char usserid[MAX_LIMIT];
@@ -237,6 +242,7 @@ void adminLogin()
             printf("\t \t \t Your UserID or password is incorrect !!\n");
             printf("\t \t **************************************************\n");
             printf("\n");
+
             adminLogin();
         }
 
@@ -386,6 +392,7 @@ void busRootAdd()
     printf("\t \t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\n");
 }
+
 void busRootView()
 {
     char ch;
@@ -406,6 +413,7 @@ void busRootView()
 
     fclose (fptr);
 }
+
 struct busdata
 {
     char root_name[MAX_LIMIT];
@@ -560,7 +568,7 @@ void seeAvailableBus()
                     printf("\n");
             }
             printf("\n");
-        }
+
 
         }
         else
@@ -590,7 +598,7 @@ void bookedDetails()
       printf("Error!");
       exit(1);
     }
-    printf("\t---------------------------------------------------------------------------------------------\n");
+    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
 
 
     while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
@@ -602,8 +610,7 @@ void bookedDetails()
 
     }
 
-
-    printf("\t---------------------------------------------------------------------------------------------\n");
+    printf("\t--------------------------------------------------------------------------------------------------------------------------------------\n");
 
     fclose (fptr);
 
@@ -682,10 +689,10 @@ void bookedSeat()
                 //printf("How many seats do you want to reserve?\n");
                 //scanf("%d", &num_seat);
 
-                displaySeat();
+                    displaySeat();
 
-                //for (int i = 1; i <= num_seat; i++)
-                //{
+            //for (int i = 1; i <= num_seat; i++)
+           //{
 
 
                     seat.total_seat = total_seat;
@@ -707,15 +714,9 @@ void bookedSeat()
                     printf("\n");
                     printf("\n");
 
-                //}
+            //}
             fclose(fptr);
             }
-
-
-
-
-
-
 
         }
         else

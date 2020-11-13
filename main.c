@@ -176,7 +176,9 @@ void adminRegister()
     FILE *fptr;
     struct user r;
     fptr = fopen("user.txt","a");
-    printf("\t Add New Admin\n");
+    printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
+    printf("\t \t Add New Admin Form\n");
+    printf("\t @@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@@\n");
     printf("\t Enter User ID: ");
     scanf("%s", &r.user_id);
     printf("\t Enter User Name: ");
@@ -560,7 +562,7 @@ void seeAvailableBus()
                     printf("\n");
             }
             printf("\n");
-        }
+
 
         }
         else
@@ -590,7 +592,7 @@ void bookedDetails()
       printf("Error!");
       exit(1);
     }
-    printf("\t---------------------------------------------------------------------------------------------\n");
+    printf("\t-----------------------------------------------------------------------------------------------------------------------------------\n");
 
 
     while( fread(&seat, sizeof(seat), 1, fptr) == 1 )
@@ -603,7 +605,7 @@ void bookedDetails()
     }
 
 
-    printf("\t---------------------------------------------------------------------------------------------\n");
+    printf("\t-----------------------------------------------------------------------------------------------------------------------------------\n");
 
     fclose (fptr);
 
@@ -682,10 +684,10 @@ void bookedSeat()
                 //printf("How many seats do you want to reserve?\n");
                 //scanf("%d", &num_seat);
 
-                displaySeat();
+                    displaySeat();
 
-                //for (int i = 1; i <= num_seat; i++)
-                //{
+            //for (int i = 1; i <= num_seat; i++)
+           //{
 
 
                     seat.total_seat = total_seat;
@@ -707,7 +709,7 @@ void bookedSeat()
                     printf("\n");
                     printf("\n");
 
-                //}
+            //}
             fclose(fptr);
             }
 
